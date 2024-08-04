@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<title></title>
+	<style type="text/css">
+		h1
+		{
+			color: blue;
+			background: white;
+		}
+		body
+		{
+			background: blue;
+		}
+		div
+		{
+			height: 350px;
+			width: 350px;
+		}
+		.td
+		{
+			height: 29px;
+			width: 50px;
+		}
+	</style>
+</head>
+<body onload="show()">
+	<center>
+		<br><br>
+	<h1>To do list using js</h1>
+	<br><br>
+<div class="jumbotron">
+   <input type="text" name="" id="fname" placeholder="enter">
+	<button onclick="save()" class="btn btn-primary">Add</button>
+	<br><br>
+	<center>
+	<table>
+        <tbody id="myrows"></tbody>
+	</table>
+	</center>
+</div>
+
+
+<script type="text/javascript">
+
+	function show() 
+	{
+    var oldstring = localStorage.getItem("students");
+    var old = oldstring ? JSON.parse(oldstring) : [];
+    
+    var row = ""; 
+
+
+    old.map((student, index) => {
+        row += `
+            <tr>
+                <input placeholder="${student.fname}"></input>
+                <p onclick=del(${index}) class="glyphicon glyphicon-trash"></p> 
+            </tr>`;
+    });
+
+
+     document.getElementById('myrows').innerHTML = row;
+}
+
+    function del(index)
+    {
+    	// alert(index)
+
+    	var oldstring = localStorage.getItem("students");
+    	var old = oldstring ? JSON.parse(oldstring) : [];
+
+    	old.splice(index,1)
+
+    	localStorage.setItem("students",JSON.stringify(old))
+
+    	// console.log(old)
+    	show()
+
+    }
+
+	function save()
+	{
+		var oldstring = localStorage.getItem("students");
+
+
+		var old = oldstring ? JSON.parse(oldstring) : [];
+
+
+		var fname = document.getElementById('fname').value;
+
+		var newstud = {"fname":fname, };		
+
+		old.push(newstud)
+
+		localStorage.setItem("students",JSON.stringify(old))
+		show()
+		document.getElementById('fname').value= '';
+
+	}
+     
+</script>
+</body>
+</html>

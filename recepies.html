@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<title></title>
+	<style type="text/css">
+
+		.checked {
+  color: orange;
+}
+		body
+		{
+			background: #17202A;
+
+		}
+		.card
+		{
+			background:  white;
+			color: black;
+			border:2px solid white;
+			margin-top: 12px;
+			margin-left: 4px;
+			height: auto;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			box-shadow: 2px 2px 2px grey;
+		}
+		.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+}
+		H1
+		{
+			color: white;
+			text-align: center;
+		}
+		.img
+		{
+			height: 200px;
+			width: 200px;
+			border-radius: 100px;
+		}
+	</style>
+	<script type="text/javascript">
+		function show()
+		{
+
+		var recipes; 
+		var row = '';
+
+    	fetch('https://dummyjson.com/recipes')
+    	.then((response) => response.json())
+    	
+
+    	.then((object)=>{
+
+    		recipes = object;
+    		 console.log(recipes.recipes)
+	           let array=recipes.recipes
+	           array.map((r)=>{
+
+    			row += `
+               <div  class='col-md-3 col-6' class="jumbotron">
+               <div class="card" >
+               <img class="card-img-top img" src='${r.image}' class='img-thumbnail' height='200'>
+               <div class="card-body">
+               <h5 class="card-title">${r.name}</h5>
+               ${r.id}
+   	           Genre: ${r.cuisine}
+		           <br>
+               <p class="card-text">"${r.difficulty}"</p>
+               </div>
+               </div>
+               </div>
+
+    			`;
+    		});  //map closed
+
+    		document.getElementById('myrow').innerHTML=row;
+
+    	}) ;  //then (data ) closed
+
+
+    	
+
+		}
+
+
+	</script>
+</head>
+<body onload="show()">
+	<div class="container">
+		<div class="row" id="myrow">
+			
+		</div>
+	</div>
+
+
+
+</body>
+</html>
